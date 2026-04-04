@@ -564,7 +564,7 @@ class DomainNameResponsesMixin(object):
                 rrset_servers = set([s[0] for s in rrset_info.servers_clients])
                 row_grouping = []
                 row = []
-                row.append((fmt.humanize_name(rrset_info.rrset.name, True), 'not-styled', None, None, None))
+                row.append((escape(fmt.humanize_name(rrset_info.rrset.name, True), quote=True), 'not-styled', None, None, None))
                 row.append((rrset_info.rrset.ttl, 'not-styled', None, None, None))
                 row.append((dns.rdatatype.to_text(rrset_info.rrset.rdtype), 'not-styled', None, None, None))
                 rrset_str = ''
@@ -592,7 +592,7 @@ class DomainNameResponsesMixin(object):
                         if server_queried:
                             row.append(('', 'not-styled', None, None, None))
                         else:
-                            row.append(('', 'not-queried', None, 'Server %s not queried for %s/%s.' % (server, fmt.humanize_name(name), dns.rdatatype.to_text(rdtype)), None))
+                            row.append(('', 'not-queried', None, 'Server %s not queried for %s/%s.' % (server, escape(fmt.humanize_name(name), quote=True), dns.rdatatype.to_text(rdtype)), None))
                 row_grouping.append(row)
 
                 for rrsig in my_name_obj.rrsig_status[rrset_info]:
